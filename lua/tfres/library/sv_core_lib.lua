@@ -70,6 +70,8 @@ if util.IsBinaryModuleInstalled("chttp") then
     --global:SendWebHook(webh, {text="testwebhook"}, true)
 
 else
+    function global:SendWebHook(webH, messageContent, pureText)
+    end
     global:Log("Webhook", "No chttp module webhooks will not work.\nDownload from here: https://github.com/timschumi/gmod-chttp")
 end
 
