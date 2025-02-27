@@ -67,26 +67,44 @@ function global:NetServer(name,info)
 end
 
 global.Networks = global.Networks or {}
+global.NetworksBypass = global.NetworksBypass or {}
 
-function global:RegisterNetwork(name,func)
+function global:RegisterNetwork(name,func,bypass)  
     global.Networks[name] = func
+    if bypass then
+        global.NetworksBypass[name] = true 
+    end
 end
+
 
 function global:GetNet(name)
     return global.Networks[name] ~= nil
 end
 
+function global:Log(addon, ...)
+    print("[tfres]",addon, ...)
+end
+
+function global:Error(addon, ...)
+    local traceback = debug.traceback()
+    print("[tfres]",addon, ... , traceback)
+end
+
 net.Receive("tfres::Networking",function(len,ply)
-    if SERVER then
-        if !ply then return end
-        if ply.tfres_net and ply.tfres_net > CurTime() then return end
-        ply.tfres_net = CurTime() + 0.1
-    end
     local name = net.ReadString()
-    if !global:GetNet(name) then error("[tfres] No network name.") return end
+    if SERVER then
+        if !global.NetworksBypass[name] then
+            if !ply then return end
+            if ply.tfres_net and ply.tfres_net > CurTime() then return end
+            ply.tfres_net = CurTime() + 0.1
+        else
+        end
+    end
+    
+    if !global:GetNet(name) then global:Error("Networking","No network name.") return end
     local bytes = net.ReadUInt(16)
     local compress = net.ReadData(bytes)
     local data = util.Decompress(compress)
     local tbl = util.JSONToTable(data)
-    global.Networks[name](tbl,ply) 
+    global.Networks[name](tbl,ply)
 end)

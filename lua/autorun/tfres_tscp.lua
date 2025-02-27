@@ -81,14 +81,15 @@ end
 local function IncludeCLir(directory)
     directory = directory .. "/"
     local files, directories = file.Find(directory .. "*", "LUA")
-
+    
     for _, v in ipairs(files) do
         if !string.StartsWith(v, "sv_") then
             AddFile(v, directory)
         end
     end
-
+    print(directory)
     for _, v in ipairs(directories) do
+        print(directory .. "/" .. v)
         IncludeCLir(directory .. v)
     end
 end
