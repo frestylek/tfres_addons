@@ -56,6 +56,7 @@ local function IncludeDir(directory)
     end
 
     for _, v in ipairs(directories) do
+        if v == "class" then continue end
         if directory == rootDirectory .. "/" then
             print("Wczytywanie [" .. v .. "]")
         end
@@ -74,6 +75,7 @@ local function IncludeCir(directory)
     end
 
     for _, v in ipairs(directories) do
+        if v == "class" then continue end
         IncludeCir(directory .. v)
     end
 end
@@ -89,6 +91,7 @@ local function IncludeCLir(directory)
     end
     print(directory)
     for _, v in ipairs(directories) do
+        if v == "class" then continue end
         print(directory .. "/" .. v)
         IncludeCLir(directory .. v)
     end
@@ -153,8 +156,13 @@ hook.Add("Initialize", "tfres_loader", function()
                 hook.Run("tfres_Loaded")
             end)
         else
-            print("[Tfres] Imposible valid IP on start?")
+            print("[Tfres] Valid IP no waiting")
             tfresLoadSV()
+            if game.IsDedicated() and util.IsBinaryModuleInstalled("fdrm") then
+                require("fdrm")
+            else
+                print("[Tfres] No DRM installed")
+            end
             hook.Run("tfres_Loaded")
         end
     end

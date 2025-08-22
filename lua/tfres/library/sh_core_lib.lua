@@ -101,7 +101,7 @@ net.Receive("tfres::Networking",function(len,ply)
         end
     end
     
-    if !global:GetNet(name) then global:Error("Networking","No network name.") return end
+    if !global:GetNet(name) then global:Error("Networking","No network name:" .. name .. " in realm: " .. (SERVER and "SERVER" or "CLIENT")) return end
     local bytes = net.ReadUInt(16)
     local compress = net.ReadData(bytes)
     local data = util.Decompress(compress)
