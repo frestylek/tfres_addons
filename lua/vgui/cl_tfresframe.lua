@@ -326,4 +326,4 @@ function PANEL:PerformLayout()
 
 end
 
-derma.DefineControl( "FFrame", "Main Window", PANEL, "EditablePanel" )
+derma.DefineControl( "TfresFrame", "Main Window", PANEL, "EditablePanel" )

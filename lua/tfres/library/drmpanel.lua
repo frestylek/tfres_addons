@@ -4,7 +4,7 @@ if CLIENT then
     fframe = fframe
     function makedermadrm()
 
-        local frame = vgui.Create("FFrame")
+        local frame = vgui.Create("TfresFrame")
         fframe = frame
         frame:SetSize(ScrW()*0.4,ScrH()*0.4)
         frame:Center()
@@ -14,7 +14,7 @@ if CLIENT then
         top:Dock(TOP)
         top:SetSize(frame:GetWide(),frame:GetTall()*0.05)
         top.Paint = nil
-        local button = vgui.Create("FButton",top)
+        local button = vgui.Create("TfresButton",top)
         button:SetSize(frame:GetWide()*0.2,top:GetTall())
         button:SetPos(frame:GetWide()-button:GetWide(),0)
         button:SetText("X")
@@ -40,7 +40,7 @@ You are not authorized yet.
 Press button below to authorisate addons.]])
         text:SizeToContents()
         text:Center()
-        local auth = vgui.Create("FButton",mid)
+        local auth = vgui.Create("TfresButton",mid)
         auth:SetSize(mid:GetWide()*0.7,mid:GetTall()*0.2)
         auth:SetPos(mid:GetWide()*.5 - auth:GetWide()/2,mid:GetTall()*.8)
         auth:SetText("AUTORYZUJ")

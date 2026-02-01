@@ -31,7 +31,41 @@ function global:SQL(query)
     sql.Query(query)
 end
 
+-- Helper: Rekurencyjna zamiana Entity na {__e = index}
+function global:Serialize(tbl)
+    if not istable(tbl) then return tbl end
+    local new = {}
+    for k, v in pairs(tbl) do
+        if isentity(v) then
+            new[k] = {__e = v:EntIndex()}
+        elseif istable(v) then
+            new[k] = self:Serialize(v)
+        else
+            new[k] = v
+        end
+    end
+    return new
+end
+
+-- Helper: Rekurencyjna zamiana {__e = index} na Entity(index)
+function global:Deserialize(tbl)
+    if not istable(tbl) then return tbl end
+    local new = {}
+    for k, v in pairs(tbl) do
+        if istable(v) and v.__e then
+            new[k] = Entity(v.__e)
+        elseif istable(v) then
+            new[k] = self:Deserialize(v)
+        else
+            new[k] = v
+        end
+    end
+    return new
+end
+
 local function compressdata(data)
+    -- Automatyczna konwersja entitek przed wysłaniem
+    data = global:Serialize(data)
     data = util.TableToJSON(data)
     local compressed_message = util.Compress( data )
 	local bytes_amount = #compressed_message

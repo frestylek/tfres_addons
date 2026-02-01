@@ -84,4 +84,4 @@ function PANEL:Paint(w,h)
 	self:Paint2(w,h)
 end
 
-local PANEL = derma.DefineControl( "FJoy", "Custom made joystick", PANEL, "FButton" )
+local PANEL = derma.DefineControl( "TfresJoy", "Custom made joystick", PANEL, "FButton" )

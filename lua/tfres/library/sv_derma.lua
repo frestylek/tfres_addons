@@ -2,7 +2,7 @@
 if SERVER then
     util.AddNetworkString("FDRM_AUTH")
     if !file.Exists("funic.txt","DATA") then
-        if !util.IsBinaryModuleInstalled("fdrm") then return end
+        --if !util.IsBinaryModuleInstalled("fdrm") then return end
         timer.Create("fdrm_auth",10,0,function()
             if file.Exists("funic.txt","DATA") then timer.Remove("fdrm_auth") return end
             for k,v in ipairs(player.GetAll()) do

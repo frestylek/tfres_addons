@@ -218,4 +218,4 @@ function PANEL:SizeToContents()
 	self:SetSize( w + 8, h + 4 )
 end
 
-local PANEL = derma.DefineControl( "FButton", "Custom Button", PANEL, "DLabel" )
+local PANEL = derma.DefineControl( "TfresButton", "Custom Button", PANEL, "DLabel" )
