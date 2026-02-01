@@ -139,6 +139,10 @@ net.Receive("tfres::Networking",function(len,ply)
     local bytes = net.ReadUInt(16)
     local compress = net.ReadData(bytes)
     local data = util.Decompress(compress)
+    
     local tbl = util.JSONToTable(data)
+    -- Automatyczne odtwarzanie entitek
+    tbl = global:Deserialize(tbl)
+    
     global.Networks[name](tbl,ply)
 end)
